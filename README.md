@@ -5,3 +5,7 @@ CLI to consume the information from Marktstammdatenregister (MaStR) https://www.
 ```sh
 cargo run -- --city herne
 ```
+
+3440318 - Ich 
+6005307 - Alex
+5853741 - Ma

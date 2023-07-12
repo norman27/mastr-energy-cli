@@ -16,16 +16,21 @@ pub(crate) fn parse_json(data: String) {
     let mut max_unit_gross_power: f32 = 0.0;
     let mut max_unit: Option<Unit> = None;
 
-    let iterator = einheiten
+    let active_solar_iter = einheiten
         .iter()
         .filter(|unit| unit.is_active() && unit.is_solar());
 
-    for unit in iterator {
+    for unit in active_solar_iter {
         if unit.gross_power > max_unit_gross_power {
             max_unit_gross_power = unit.gross_power;
             max_unit = Some(unit.clone());
         }
 
+        if unit.is_balkonkraftwerk() {
+            result.balkonkraftwerke.push(unit.clone());
+        }
+
+        // totals
         result.gross_power += unit.gross_power;
         result.unit_count += 1;
     }
@@ -36,4 +41,5 @@ pub(crate) fn parse_json(data: String) {
         "🔥 Maximalleistung: {} kW {:?}",
         max_unit_gross_power, max_unit
     );
+    //println!("{:?}", result.balkonkraftwerke);
 }

@@ -20,6 +20,9 @@ pub struct Unit {
     #[serde(rename = "Bruttoleistung")]
     pub gross_power: f32,
 
+    #[serde(rename = "Nettonennleistung")]
+    pub net_power: f32,
+
     #[serde(rename = "EnergietraegerName")]
     pub energy_carrier: String,
 
@@ -32,10 +35,15 @@ pub struct Unit {
 
 impl Unit {
     pub fn is_active(&self) -> bool {
-        self.activation_id == 35 // 35 = In Betrieb
+        self.activation_id == 35
     }
 
     pub fn is_solar(&self) -> bool {
-        self.category == 1 // 1 = Solare Strahlungsenergie
+        self.category == 1
+    }
+
+    pub fn is_balkonkraftwerk(&self) -> bool {
+        // @TODO needs refinement regarding 0.8
+        return self.net_power <= 0.6 && self.pv_module_count <= Some(2);
     }
 }
