@@ -32,10 +32,10 @@ pub struct Unit {
 
 impl Unit {
     pub fn is_active(&self) -> bool {
-        return self.activation_id == 35; // 35 = In Betrieb
+        self.activation_id == 35 // 35 = In Betrieb
     }
 
     pub fn is_solar(&self) -> bool {
-        return self.category == 1; // 1 = Solare Strahlungsenergie
+        self.category == 1 // 1 = Solare Strahlungsenergie
     }
 }

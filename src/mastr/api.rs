@@ -4,8 +4,8 @@ pub(crate) fn fetch_json_cached(city: String) -> Option<String> {
     let data = fs::read_to_string(format!("./data/{}.json", city.to_lowercase()));
 
     match data {
-        Ok(data) => return Some(data),
-        Err(_error) => return fetch_json(city),
+        Ok(data) => Some(data),
+        Err(_error) => fetch_json(city),
     }
 }
 
@@ -16,5 +16,5 @@ fn fetch_json(city: String) -> Option<String> {
 
     //@TODO might want to cache this
 
-    return Some(body);
+    Some(body)
 }

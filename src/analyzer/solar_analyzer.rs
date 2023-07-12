@@ -2,7 +2,7 @@ use mastr::types::{ApiResponse, Unit};
 
 use crate::{analyzer::types::AnalyzerResult, mastr};
 
-pub(crate) fn parse_json(data: String) -> () {
+pub(crate) fn parse_json(data: String) {
     let mut result = AnalyzerResult::new();
 
     let einheiten: Vec<Unit> = match serde_json::from_str::<ApiResponse>(&data) {

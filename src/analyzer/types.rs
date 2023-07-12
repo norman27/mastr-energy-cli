@@ -7,9 +7,9 @@ pub struct AnalyzerResult {
 
 impl AnalyzerResult {
     pub fn new() -> AnalyzerResult {
-        return Self {
+        Self {
             unit_count: 0,
             gross_power: 0.0,
-        };
+        }
     }
 }
