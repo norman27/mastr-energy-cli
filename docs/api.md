@@ -8,10 +8,16 @@
 ## Response
 ### Constants
 #### Typ
-- 1 = Solar
+- 1 = Solare Strahlungsenergie
 - 2 = Wind
 - 3 = Biomasse
 - 4 = Wasser
 - 5 = Grubengas || Druck aus Gasleitungen
 - 6 = Erdgas || Mineralölprodukte || andere Gase || Steinkohle
 - 8 = Speicher
+
+#### BetriebsStatusId
+- 35 = In Betrieb
+- 31 = In Planung
+- 38 = Endgültig stillgelegt
+- 37 = Vorübergehend stillgelegt
