@@ -1,20 +1,29 @@
+use std::collections::BTreeMap;
+
 use crate::mastr::types::Unit;
 
 #[derive(Debug)]
 pub struct AnalyzerResult {
     pub unit_count: u32,
-
-    pub balkonkraftwerke: Vec<Unit>,
-
+    pub balcony_units: Vec<Unit>,
     pub gross_power: f32,
+    pub power_added_by_day: BTreeMap<i32, PowerAdded>, // maps ymd -> PowerAdded
+}
+
+// @TODO does this need to be a struct or can it be some kind of `type`?
+#[derive(Debug)]
+pub struct PowerAdded {
+    pub added_units: u16,
+    pub added_gross_power: f32,
 }
 
 impl AnalyzerResult {
     pub fn new() -> AnalyzerResult {
         Self {
             unit_count: 0,
-            balkonkraftwerke: Vec::new(),
+            balcony_units: Vec::new(),
             gross_power: 0.0,
+            power_added_by_day: BTreeMap::new(),
         }
     }
 }

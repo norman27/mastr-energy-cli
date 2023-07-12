@@ -1,6 +1,6 @@
 use mastr::types::{ApiResponse, Unit};
 
-use crate::{analyzer::types::AnalyzerResult, mastr};
+use crate::{analyzer::types::{AnalyzerResult, PowerAdded}, mastr};
 
 pub(crate) fn parse_json(data: String) {
     let mut result = AnalyzerResult::new();
@@ -21,14 +21,23 @@ pub(crate) fn parse_json(data: String) {
         .filter(|unit| unit.is_active() && unit.is_solar());
 
     for unit in active_solar_iter {
+        // find max power source
         if unit.gross_power > max_unit_gross_power {
             max_unit_gross_power = unit.gross_power;
             max_unit = Some(unit.clone());
         }
 
-        if unit.is_balkonkraftwerk() {
-            result.balkonkraftwerke.push(unit.clone());
+        // balcony
+        if unit.is_balcony() {
+            result.balcony_units.push(unit.clone());
         }
+
+        // add daily stats
+        result.power_added_by_day
+            .entry(unit.start_ymd())
+            .and_modify(|p_by_day| p_by_day.added_gross_power += unit.gross_power)
+            .and_modify(|p_by_day| p_by_day.added_units += 1)
+            .or_insert(PowerAdded {added_units: 1, added_gross_power: unit.gross_power });
 
         // totals
         result.gross_power += unit.gross_power;
@@ -41,5 +50,5 @@ pub(crate) fn parse_json(data: String) {
         "🔥 Maximalleistung: {} kW {:?}",
         max_unit_gross_power, max_unit
     );
-    //println!("{:?}", result.balkonkraftwerke);
+    println!("{:?}", result.power_added_by_day);
 }
