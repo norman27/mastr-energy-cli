@@ -8,6 +8,7 @@ pub struct AnalyzerResult {
     pub balcony_units: Vec<Unit>,
     pub gross_power: f32,
     pub power_added_by_day: BTreeMap<i32, PowerAdded>, // maps ymd -> PowerAdded
+    pub max_unit: Option<Unit>,
 }
 
 // @TODO does this need to be a struct or can it be some kind of `type`?
@@ -24,6 +25,7 @@ impl AnalyzerResult {
             balcony_units: Vec::new(),
             gross_power: 0.0,
             power_added_by_day: BTreeMap::new(),
+            max_unit: None,
         }
     }
 }

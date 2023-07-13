@@ -2,7 +2,7 @@ use mastr::types::{ApiResponse, Unit};
 
 use crate::{analyzer::types::{AnalyzerResult, PowerAdded}, mastr};
 
-pub(crate) fn parse_json(data: String) {
+pub(crate) fn parse_json(data: String) -> AnalyzerResult {
     let mut result = AnalyzerResult::new();
 
     let einheiten: Vec<Unit> = match serde_json::from_str::<ApiResponse>(&data) {
@@ -44,11 +44,7 @@ pub(crate) fn parse_json(data: String) {
         result.unit_count += 1;
     }
 
-    println!("🌞 Summe SolarAnlagen: {}", result.unit_count);
-    println!("🌞 Summe Solar Bruttoleistung: {}", result.gross_power);
-    println!(
-        "🔥 Maximalleistung: {} kW {:?}",
-        max_unit_gross_power, max_unit
-    );
-    println!("{:?}", result.power_added_by_day);
+    result.max_unit = max_unit;
+
+    return result;
 }
