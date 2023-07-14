@@ -6,6 +6,5 @@ CLI to consume the information from Marktstammdatenregister (MaStR) https://www.
 cargo run -- --city herne
 ```
 
-3440318 - Ich 
-6005307 - Alex
-5853741 - Ma
+## Example
+![Added Solar Units by Day](https://raw.githubusercontent.com/norman27/mastr-energy-cli/main/doc/mastr-solar-analyzer.png)

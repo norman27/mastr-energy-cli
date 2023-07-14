@@ -7,7 +7,7 @@ pub struct AnalyzerResult {
     pub unit_count: u32,
     pub balcony_units: Vec<Unit>,
     pub gross_power: f32,
-    pub power_added_by_day: BTreeMap<i32, PowerAdded>, // maps ymd -> PowerAdded
+    pub power_added_by_day: BTreeMap<i64, PowerAdded>, // maps timestamp -> PowerAdded
     pub max_unit: Option<Unit>,
 }
 

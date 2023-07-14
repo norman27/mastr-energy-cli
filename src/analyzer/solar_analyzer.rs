@@ -34,7 +34,7 @@ pub(crate) fn parse_json(data: String) -> AnalyzerResult {
 
         // add daily stats
         result.power_added_by_day
-            .entry(unit.start_ymd())
+            .entry(unit.start_daystamp())
             .and_modify(|p_by_day| p_by_day.added_gross_power += unit.gross_power)
             .and_modify(|p_by_day| p_by_day.added_units += 1)
             .or_insert(PowerAdded {added_units: 1, added_gross_power: unit.gross_power });

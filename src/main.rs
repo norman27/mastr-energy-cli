@@ -3,6 +3,7 @@ use std::error::Error;
 
 use analyzer::types::PowerAdded;
 use analyzer::{solar_analyzer::parse_json, types::AnalyzerResult};
+use chrono::NaiveDateTime;
 use clap::Parser;
 use mastr::api::fetch_json_cached;
 
@@ -169,20 +170,21 @@ impl DrawingBackend for TextDrawingBackend {
 
 fn draw_chart<DB: DrawingBackend>(
     b: DrawingArea<DB, plotters::coord::Shift>,
-    data: BTreeMap<i32, PowerAdded>
+    data: BTreeMap<i64, PowerAdded>
 ) -> Result<(), Box<dyn Error>>
 where
     DB::ErrorType: 'static,
 {
-    let _min_key = data.keys().next().map(|v| v).unwrap();
+    //let min_key = data.keys().next().map(|v| v).unwrap();
+    let min_key = NaiveDateTime::parse_from_str("2020-01-01 12:00:00", "%Y-%m-%d %H:%M:%S").unwrap().timestamp();
     let max_key = data.keys().last().map(|v| v).unwrap();
 
     let mut chart = ChartBuilder::on(&b)
         .margin(1)
-        .caption("Added Power", ("sans-serif", (10).percent_height()))
+        .caption("Added Units by Day since 2020", ("sans-serif", (10).percent_height()))
         .set_label_area_size(LabelAreaPosition::Left, (5i32).percent_width())
         .set_label_area_size(LabelAreaPosition::Bottom, (10i32).percent_height())
-        .build_cartesian_2d(*max_key-10..*max_key, 0.0..20.0)?; //@TODO
+        .build_cartesian_2d(min_key..*max_key, 0..10)?; //@TODO
 
     chart
         .configure_mesh()
@@ -191,8 +193,7 @@ where
         .draw()?;
 
     chart.draw_series(LineSeries::new(
-        //@TODO ymd is not practical because of the missing entries for x-axis
-        data.iter().map(|point| (*point.0, point.1.added_gross_power as f64)),
+        data.iter().map(|point| (*point.0, point.1.added_units as i32)),
         &RED,
     ))?;
 

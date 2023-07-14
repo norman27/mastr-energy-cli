@@ -63,7 +63,8 @@ impl Unit {
         return self.net_power <= 0.6 && self.pv_module_count <= Some(2);
     }
 
-    pub fn start_ymd(&self) -> i32 {
+    // returns the 12:00 PM of the day as unixtimestamp
+    pub fn start_daystamp(&self) -> i64 {
         let mut time = NaiveDateTime::from_timestamp_millis(0);
 
         match self.start_datetime_ms {
@@ -71,7 +72,6 @@ impl Unit {
             None => (),
         }
 
-
-        return time.unwrap().format("%Y%m%d").to_string().parse::<i32>().unwrap();
+        return time.unwrap().format("%s").to_string().parse::<i64>().unwrap();
     }
 }
