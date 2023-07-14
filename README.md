@@ -7,4 +7,4 @@ cargo run -- --city herne
 ```
 
 ## Example
-![Added Solar Units by Day](https://raw.githubusercontent.com/norman27/mastr-energy-cli/main/doc/mastr-solar-analyzer.png)
+![Added Solar Units by Day](https://raw.githubusercontent.com/norman27/mastr-energy-cli/main/docs/mastr-solar-analyzer.png)
