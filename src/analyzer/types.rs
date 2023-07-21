@@ -2,6 +2,8 @@ use std::collections::BTreeMap;
 
 use crate::mastr::types::Unit;
 
+pub type PowerAdded = (u16, f32);
+
 #[derive(Debug)]
 pub struct AnalyzerResult {
     pub unit_count: u32,
@@ -9,13 +11,6 @@ pub struct AnalyzerResult {
     pub gross_power: f32,
     pub power_added_by_day: BTreeMap<i64, PowerAdded>, // maps timestamp -> PowerAdded
     pub max_unit: Option<Unit>,
-}
-
-// @TODO does this need to be a struct or can it be some kind of `type`?
-#[derive(Debug)]
-pub struct PowerAdded {
-    pub added_units: u16,
-    pub added_gross_power: f32,
 }
 
 impl AnalyzerResult {
