@@ -162,7 +162,7 @@ pub fn draw_chart(
 
     //let min_key = data.keys().next().map(|v| v).unwrap();
     let min_key = NaiveDateTime::parse_from_str("2022-01-01 12:00:00", "%Y-%m-%d %H:%M:%S").unwrap().timestamp();
-    let max_key = data.keys().last().map(|v| v).unwrap();
+    let max_key = data.keys().last().unwrap();
 
     let mut chart = ChartBuilder::on(&b)
         .margin(1)
@@ -180,7 +180,7 @@ pub fn draw_chart(
 
     chart.draw_series(LineSeries::new(
         data.iter().map(|point| (*point.0, point.1.0 as i32)),
-        &RED,
+        RED,
     ))?;
 
     b.present()?;

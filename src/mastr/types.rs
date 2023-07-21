@@ -60,16 +60,15 @@ impl Unit {
 
     pub fn is_balcony(&self) -> bool {
         // @TODO needs refinement regarding 0.8
-        return self.net_power <= 0.6 && self.pv_module_count <= Some(2);
+        self.net_power <= 0.6 && self.pv_module_count <= Some(2)
     }
 
     // returns the 12:00 PM of the day as unixtimestamp
     pub fn start_daystamp(&self) -> i64 {
         let mut time = NaiveDateTime::from_timestamp_millis(0);
 
-        match self.start_datetime_ms {
-            Some(s) => time = NaiveDateTime::from_timestamp_millis(s),
-            None => (),
+        if let Some(s) = self.start_datetime_ms {
+            time = NaiveDateTime::from_timestamp_millis(s);
         }
 
         return time.unwrap().format("%s").to_string().parse::<i64>().unwrap();

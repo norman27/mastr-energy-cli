@@ -46,5 +46,5 @@ pub(crate) fn parse_json(data: String) -> AnalyzerResult {
 
     result.max_unit = max_unit;
 
-    return result;
+    result
 }
