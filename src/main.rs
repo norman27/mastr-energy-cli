@@ -18,13 +18,17 @@ struct Args {
 
 fn main() -> Result<(), Box<dyn Error>> {
     let args = Args::parse();
-    let api_result = fetch_json_cached(args.city);
+    let city = &args.city;
+    let api_result = fetch_json_cached(city.to_owned());
 
     let result = match api_result {
         Some(body) => parse_json(body),
         None => AnalyzerResult::new(),
     };
 
+    println!("");
+    println!("⛪ Solar Evaluation for {}", city);
+    println!("");
     println!("🔆 Solar Units: {}", result.unit_count);
     println!("🔌 Balcony Units: {}", result.balcony_units.len());
     println!("💡 Sum Gross Power: {} kW", result.gross_power);
